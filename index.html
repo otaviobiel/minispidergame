@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./styles/game-over.css">
+  <link rel="stylesheet" href="./styles/menu.css">
+
+  <title>Mini Spider Game</title>
+</head>
+<body class="menu-page">
+  <main class="menu-screen" aria-label="Tela inicial">
+    <div class="menu-background" aria-hidden="true">
+      <img src="./assets/scenary/background2.png" alt="">
+      <img src="./assets/scenary/background2.png" alt="">
+    </div>
+
+    <div class="menu-top-actions">
+      <button class="game-over-btn menu-icon-button menu-settings-button" type="button" data-menu-settings aria-label="Configurações">
+        <span>CFG</span>
+      </button>
+
+      <button class="game-over-btn menu-icon-button menu-volume-button" type="button" data-menu-volume aria-label="Volume">
+        <span data-volume-label>VOL</span>
+      </button>
+    </div>
+
+    <section class="menu-panel">
+      <h1 class="menu-title">
+        <span>MINI</span>
+        <span>SPIDER</span>
+        <span>game</span>
+      </h1>
+
+      <nav class="menu-buttons" aria-label="Menu principal">
+        <button class="game-over-btn game-over-btn-restart menu-main-button" type="button" data-play-level>
+          <span>PLAY</span>
+        </button>
+
+        <button class="game-over-btn game-over-btn-home menu-main-button" type="button" data-menu-locked>
+          <span>CHARACTER</span>
+        </button>
+
+        <button class="game-over-btn game-over-btn-restart menu-main-button" type="button" data-menu-locked>
+          <span>CREDITS</span>
+        </button>
+      </nav>
+
+      <p class="menu-message" data-menu-message>SELECIONE UMA OPÇÃO</p>
+    </section>
+
+    <div class="menu-settings-panel" data-menu-settings-panel aria-hidden="true">
+      <strong>CONFIG</strong>
+      <span>EM BREVE</span>
+    </div>
+
+    <audio data-menu-music loop preload="auto"></audio>
+  </main>
+
+  <script src="./scripts/menuController.js"></script>
+</body>
+</html>

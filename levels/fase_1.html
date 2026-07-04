@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="../">
+
+  <link rel="stylesheet" href="./styles/game.css">
+  <link rel="stylesheet" href="./styles/hud.css">
+  <link rel="stylesheet" href="./styles/game-over.css">
+
+  <title>Mini Spider Game - Fase 1</title>
+</head>
+<body>
+  <div class="game-board">
+
+    <div class="game-display">
+                  <!-- index 0 -->
+      <div class="background">
+        <img src="assets/scenary/background2.png" alt="">
+        <img src="assets/scenary/background2.png" alt="">
+      </div>
+                  <!-- index 1 -->
+      <div class="buildings"></div>
+                  <!-- index 2 -->
+      <div class="nature-layer"></div>
+
+                  <!-- index 3 -->
+      <div class="floor">
+        <img src="./assets/scenary/floor.png">
+        <img src="./assets/scenary/floor.png">
+      </div>
+
+
+      <section class="game-hud" aria-label="Interface da fase">
+        <div class="hud-top-row">
+          <div class="hud-main-bar-card">
+            <div class="hud-main-bar-header">
+              <span data-phase-label>PROGRESSO</span>
+              <strong data-main-bar-percent>0%</strong>
+            </div>
+            <div class="hud-main-bar-track">
+              <div class="hud-main-bar-fill" data-main-bar-fill></div>
+              <div class="hud-main-bar-pointer" data-main-bar-pointer aria-hidden="true">
+                <img src="./assets/ui/hero-pointer.png" alt="">
+              </div>
+            </div>
+          </div>
+
+          <button class="hud-pause-button" type="button" data-pause-game aria-label="Pausar jogo">II</button>
+        </div>
+
+        <div class="hud-score-row">
+          <span>PTS <strong data-score-points>0</strong></span>
+          <span>BOMB <strong data-score-thugs>0</strong></span>
+          <span>COIN <strong data-score-coins>0</strong></span>
+          <span>TEIA <strong data-score-webs>0</strong></span>
+        </div>
+      </section>
+
+      <aside class="hud-energy-panel" aria-label="Fluido de teia">
+        <div class="hud-energy-label"><img class="hud-energy-label-icon" src="./assets/collectibles/web-energy.png" alt="Teia"></div>
+        <div class="hud-energy-track">
+          <div class="hud-energy-fill" data-energy-fill></div>
+        </div>
+        <div class="hud-energy-value"><span data-energy-value>0</span>%</div>
+      </aside>
+
+      <button class="hud-special-button" type="button" data-special-button disabled aria-label="Atirar teia">
+        <span class="hud-special-orb"></span>
+        <span data-special-text>TEIA</span>
+      </button>
+
+      <section class="pause-overlay" data-pause-overlay aria-hidden="true">
+        <div class="pause-panel">
+          <h2>PAUSADO</h2>
+          <button type="button" data-resume-game>CONTINUAR</button>
+        </div>
+      </section>
+
+      <section class="game-over-overlay" aria-hidden="true">
+        <div class="game-over-panel">
+          <div class="game-over-spider-string"></div>
+          <img class="game-over-small-spider" src="./assets/ui/game-over-spider.png" alt="">
+
+          <h1 class="game-over-title">
+            <span data-game-over-title-1>FIM</span>
+            <span data-game-over-title-2>DE JOGO</span>
+          </h1>
+
+          <img class="game-over-hero" src="./assets/ui/game-over-hero.png" alt="Herói aracnídeo em pixel art">
+
+          <div class="game-over-stats" data-game-over-stats aria-label="Resumo da partida">
+            <div class="game-over-stat-row"><span>bombas</span><strong data-final-thugs>0</strong></div>
+            <div class="game-over-stat-row"><span>moedas</span><strong data-final-coins>0</strong></div>
+            <div class="game-over-stat-row"><span>teias</span><strong data-final-webs>0</strong></div>
+            <div class="game-over-stat-row game-over-stat-row-total"><span>pontos</span><strong data-final-total>0</strong></div>
+          </div>
+
+          <div class="game-over-actions">
+            <button class="game-over-btn game-over-btn-home" type="button" data-go-home>
+              <img class="game-over-btn-icon" src="./assets/ui/restart-btn.png" alt="">
+              <span>VOLTAR</span>
+            </button>
+
+            <button class="game-over-btn game-over-btn-restart" type="button" data-restart-game>
+              <img class="game-over-btn-icon" src="./assets/ui/play-btn.webp" alt="">
+              <span>DE NOVO</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+
+  <script src="./scripts/audioController.js"></script>
+  <script src="./scripts/gameState.js"></script>
+  <script src="./scripts/buildingSpawner.js"></script>
+  <script src="./scripts/natureSpawner.js"></script>
+  <script src="./scripts/playerController.js"></script>
+  <script src="./scripts/gameOverController.js"></script>
+  <script src="./scripts/phaseController.js"></script>
+  <script src="./scripts/collectibleController.js"></script>
+  <script src="./scripts/coinController.js"></script>
+  <script src="./scripts/thugController.js"></script>
+  <script src="./scripts/projectileController.js"></script>
+  <script src="./scripts/obstacleController.js"></script>
+  <script src="./scripts/bossController.js"></script>
+
+</body>
+</html>

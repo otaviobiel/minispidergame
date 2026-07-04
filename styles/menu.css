@@ -1,0 +1,185 @@
+@import url("./fonts.css");
+
+/*=====MENU INICIAL=====*/
+.menu-page {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #020513;
+  color: #fff;
+  font-family: "press-start";
+  image-rendering: pixelated;
+}
+
+.menu-screen {
+  position: relative;
+  width: min(980px, 100%);
+  height: min(600px, 100vh);
+  overflow: hidden;
+  background: #090f2d;
+  border: 1px solid #000;
+}
+
+.menu-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  opacity: 0.78;
+  filter: brightness(0.75) saturate(1.1);
+  animation: menuBackgroundMove 60s linear infinite;
+}
+
+.menu-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(3, 6, 24, 0.15), rgba(0, 0, 0, 0.74)),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.05) 0 2px,
+      transparent 2px 5px
+    );
+}
+
+.menu-background img {
+  height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.menu-top-actions {
+  position: absolute;
+  z-index: 3;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.menu-icon-button {
+  flex: 0 0 auto;
+  width: 58px;
+  min-height: 42px;
+  padding: 4px;
+  pointer-events: auto;
+}
+
+.menu-settings-button {
+  background: rgb(255, 12, 12);
+}
+
+.menu-volume-button {
+  background: rgb(23, 23, 235);
+}
+
+.menu-panel {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  width: min(340px, 88%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.menu-title {
+  margin: 0 0 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 0.85;
+  color: #ff253f;
+  font-size: clamp(30px, 6vw, 54px);
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-shadow:
+    5px 0 0 #0038ff,
+    0 5px 0 #00ffff,
+    5px 5px 0 #001b83,
+    -2px -2px 0 #ffffff;
+}
+
+.menu-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu-main-button {
+  width: 100%;
+  min-height: 54px;
+  flex: 0 0 auto;
+}
+
+.menu-message {
+  min-height: 18px;
+  margin: 18px 0 0;
+  color: #ffee00;
+  font-size: 8px;
+  line-height: 1.25;
+  text-shadow: 2px 2px 0 #000;
+}
+
+.menu-settings-panel {
+  position: absolute;
+  z-index: 4;
+  top: 66px;
+  left: 14px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  color: #fff;
+  font-size: 8px;
+  text-shadow: 2px 2px 0 #000;
+  background: rgba(7, 10, 24, 0.88);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 0 0 2px #000, 4px 4px 0 #000;
+}
+
+.menu-settings-panel.is-visible {
+  display: flex;
+}
+
+@keyframes menuBackgroundMove {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 720px) {
+  .menu-screen {
+    width: 100%;
+    height: 100vh;
+    border: 0;
+  }
+
+  .menu-panel {
+    width: min(300px, 84%);
+  }
+
+  .menu-icon-button {
+    width: 52px;
+    min-height: 40px;
+    font-size: 8px;
+  }
+}

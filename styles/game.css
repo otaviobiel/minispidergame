@@ -1,0 +1,692 @@
+/*=====CONFIGS=====*/
+@import url("./animations.css");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  background: #020513;
+}
+
+.game-board {
+  position: relative;
+  width: min(980px, 100%);
+  height: min(600px, 100vh);
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.game-display {
+  width: 100%;
+  height: 100%;
+  background-color: #060c2c;
+  position: relative;
+  overflow: hidden;
+}
+
+.background {
+  z-index: 0;
+  display: flex;
+  flex-shrink: 0;
+  position: absolute;
+  inset: 0;
+  bottom: 0;
+  animation: moveBackground 60s linear infinite;
+}
+
+.background img {
+  height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.buildings {
+  z-index: 2;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.building-group {
+  position: absolute;
+  left: 100%;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  width: max-content;
+  white-space: nowrap;
+  animation-name: buildingAnimation;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.buildings img {
+  width: auto;
+  max-width: none;
+  flex-shrink: 0;
+  object-fit: contain;
+  object-position: bottom center;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(5px 0 0 rgba(0, 0, 0, 0.22));
+}
+
+.building-item {
+  position: relative;
+}
+
+.nature-layer {
+  position: absolute;
+  left: 0;
+  bottom: 25px;
+  width: 100%;
+  height: 180px;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.nature-group {
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  display: flex;
+  align-items: flex-end;
+  width: max-content;
+  white-space: nowrap;
+  animation-name: natureAnimation;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.nature-item {
+  width: auto;
+  flex-shrink: 0;
+  position: relative;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(3px 0 0 rgba(0, 0, 0, 0.2));
+}
+
+.nature-small-tree,
+.nature-tall-tree {
+  z-index: 1;
+}
+
+.nature-bush {
+  z-index: 3;
+}
+
+.floor {
+  z-index: 6;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: max-content;
+  animation: moveFloor 15s linear infinite;
+}
+
+.floor img {
+  width: 100%;
+  height: 50px;
+}
+
+/*=====PLAYER=====*/
+.player {
+  z-index: 7;
+  position: absolute;
+  width: 82px;
+  height: 82px;
+  pointer-events: none;
+}
+
+.player-sprite {
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  position: relative;
+  z-index: 2;
+}
+
+.player-web-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  display: none;
+  z-index: 5;
+  pointer-events: none;
+  image-rendering: pixelated;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.95) 0 4px,
+    rgba(255, 255, 255, 0.95) 4px 6px,
+    rgba(165, 210, 255, 0.9) 6px 8px
+  );
+}
+
+.player-web-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 6px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.95);
+  image-rendering: pixelated;
+}
+
+.player-web-line::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: -1px;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.95);
+  image-rendering: pixelated;
+}
+
+.player-web-line.is-visible {
+  display: block;
+}
+
+/*=====PROJECTILES=====*/
+.projectile-warning {
+  z-index: 8;
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+  animation: projectileWarningBlink 0.28s steps(2, end) infinite;
+}
+
+.projectile-missile {
+  z-index: 8;
+  position: absolute;
+  width: 64px;
+  height: 28px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+}
+
+@keyframes projectileWarningBlink {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0.45;
+    transform: translateX(-4px);
+  }
+}
+
+/*=====OBSTACLES=====*/
+.laser-warning-zone {
+  z-index: 8;
+  position: absolute;
+  width: 84px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: laserWarningPulse 0.36s steps(2, end) infinite;
+}
+
+.laser-warning-zone .laser-warning-gap {
+  width: 100%;
+  height: 100%;
+  border: 3px dashed rgba(255, 233, 92, 0.95);
+  background: rgba(255, 214, 91, 0.1);
+}
+
+
+.laser-warning-zone .laser-warning-gap {
+  width: 100%;
+  height: 100%;
+  border: 3px dashed rgba(255, 233, 92, 0.95);
+  background: rgba(255, 214, 91, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.laser-warning-zone .laser-warning-gap img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.laser-warning-bar {
+  position: absolute;
+  left: 36px;
+  width: 12px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 70, 82, 0.9) 0 6px,
+    rgba(255, 240, 110, 0.9) 6px 10px
+  );
+  box-shadow: 0 0 10px rgba(255, 70, 82, 0.6);
+}
+
+.laser-warning-bar-top {
+  top: -600px;
+  height: 600px;
+}
+
+.laser-warning-bar-bottom {
+  bottom: -600px;
+  height: 600px;
+}
+
+.laser-gate {
+  z-index: 8;
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+}
+
+.laser-emitter {
+  width: 28px;
+  height: 24px;
+  position: absolute;
+  left: 0;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.laser-beam {
+  position: absolute;
+  left: 8px;
+  width: 12px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 235, 140, 0.95) 0 4px,
+    rgba(255, 85, 98, 0.95) 4px 8px,
+    rgba(255, 245, 210, 0.92) 8px 10px
+  );
+  box-shadow: 0 0 8px rgba(255, 60, 80, 0.9), 0 0 14px rgba(255, 220, 80, 0.55);
+}
+
+.laser-beam-top {
+  top: 0;
+}
+
+@keyframes laserWarningPulse {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0.45;
+    transform: translateX(-3px);
+  }
+}
+
+/*=====PLAYER DEATH=====*/
+.player.is-dying {
+  animation: playerDeathImpact 0.85s steps(8, end) forwards;
+}
+
+.player.is-dying .player-sprite {
+  animation: playerDeathBlink 0.14s steps(2, end) infinite;
+}
+
+.game-display.is-player-death .background,
+.game-display.is-player-death .floor,
+.game-display.is-player-death .nature-group,
+.game-display.is-player-death .building-group,
+.game-display.is-game-over .background,
+.game-display.is-game-over .floor,
+.game-display.is-game-over .nature-group,
+.game-display.is-game-over .building-group {
+  animation-play-state: paused !important;
+}
+
+@keyframes playerDeathImpact {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translate(-6px, -8px) rotate(-8deg) scale(1.05);
+  }
+
+  45% {
+    transform: translate(5px, 8px) rotate(10deg) scale(0.96);
+  }
+
+  70% {
+    transform: translate(-3px, 18px) rotate(-12deg) scale(0.9);
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: translate(0, 30px) rotate(0deg) scale(0.82);
+    opacity: 0.25;
+  }
+}
+
+@keyframes playerDeathBlink {
+  0% {
+    filter: brightness(1) saturate(1);
+  }
+
+  100% {
+    filter: brightness(2.4) saturate(0.25);
+  }
+}
+
+/*=====PLAYER SPIDER-SENSE COM 3 RAIOS=====*/
+.player-spider-sense {
+  position: absolute !important;
+  width: 74px !important;
+  height: 54px !important;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -100%) !important;
+  display: none;
+  pointer-events: none;
+  z-index: 12 !important;
+  overflow: visible !important;
+}
+
+.player-spider-sense.is-visible {
+  display: block !important;
+}
+
+.player-spider-sense-ray {
+  position: absolute !important;
+  width: 34px !important;
+  height: 42px !important;
+  background-image: url("../assets/effects/spider-sense.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  transform-origin: 50% 100% !important;
+  animation: spiderSenseRayPulse 0.36s steps(2, end) infinite;
+}
+
+.player-spider-sense-ray:nth-child(1) {
+  left: 7px !important;
+  top: 20px !important;
+  transform: rotate(-55deg) scale(0.95) !important;
+}
+
+.player-spider-sense-ray:nth-child(2) {
+  left: 20px !important;
+  top: 3px !important;
+  transform: rotate(0deg) scale(1) !important;
+}
+
+.player-spider-sense-ray:nth-child(3) {
+  left: 34px !important;
+  top: 20px !important;
+  transform: rotate(55deg) scale(0.95) !important;
+}
+
+.player-spider-sense-ray:nth-child(n + 4) {
+  display: none !important;
+}
+
+@keyframes spiderSenseRayPulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.55;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 720px) {
+  .game-board {
+    width: 100vw;
+    height: 100vh;
+    border: 0;
+  }
+}
+
+
+
+/*=====MOEDAS DO CHÃO=====*/
+.ground-coin {
+  z-index: 7;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #ffcc24;
+  border: 3px solid #000;
+  border-radius: 50%;
+  box-shadow:
+    inset 4px 0 0 #ffe98a,
+    inset -4px -2px 0 #c87800,
+    3px 3px 0 rgba(0, 0, 0, 0.65);
+  animation: coinSpin 0.55s steps(4, end) infinite;
+}
+
+.ground-coin::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  width: 4px;
+  height: 11px;
+  background: #fff3a6;
+  border: 2px solid #8a4c00;
+}
+
+.ground-coin-shine {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 5px;
+  height: 5px;
+  background: #fff7c7;
+  border: 1px solid #000;
+}
+
+.game-display.is-paused .ground-coin,
+.game-display.is-player-death .ground-coin,
+.game-display.is-game-over .ground-coin {
+  animation-play-state: paused !important;
+}
+
+@keyframes coinSpin {
+  0% { transform: translateY(0) scaleX(1); }
+  50% { transform: translateY(-2px) scaleX(0.72); }
+  100% { transform: translateY(0) scaleX(1); }
+}
+
+/*=====BOMBAS / WEB SHOTS=====*/
+.ground-bomb {
+  z-index: 8;
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.7));
+}
+
+.ground-bomb-radius {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 148px;
+  height: 148px;
+  border: 3px solid #ff8a1c;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  background: radial-gradient(circle, rgba(255, 138, 28, 0.16) 0 44%, rgba(255, 138, 28, 0.04) 45% 100%);
+  box-shadow: 0 0 12px rgba(255, 138, 28, 0.65), inset 0 0 10px rgba(255, 138, 28, 0.42);
+}
+
+.ground-bomb.is-armed .ground-bomb-radius {
+  opacity: 1;
+  animation: bombRadiusPulse 0.75s steps(3, end) infinite;
+}
+
+.ground-bomb-body {
+  position: absolute;
+  left: 4px;
+  top: 7px;
+  width: 26px;
+  height: 24px;
+  display: block;
+  background: #171717;
+  border: 3px solid #000;
+  border-radius: 50%;
+  box-shadow:
+    inset 5px -4px 0 #050505,
+    inset -4px 4px 0 rgba(255, 255, 255, 0.18),
+    0 0 0 2px rgba(255, 142, 31, 0.28);
+}
+
+.ground-bomb-fuse {
+  position: absolute;
+  left: 16px;
+  top: -9px;
+  width: 12px;
+  height: 11px;
+  border-top: 3px solid #000;
+  border-right: 3px solid #000;
+  transform: rotate(-15deg);
+}
+
+.ground-bomb-spark {
+  position: absolute;
+  left: 25px;
+  top: -15px;
+  width: 8px;
+  height: 8px;
+  background: #ffde3b;
+  border: 2px solid #000;
+  box-shadow: 0 0 8px rgba(255, 126, 30, 0.9);
+  animation: bombSpark 0.18s steps(2, end) infinite;
+}
+
+.ground-bomb.is-thrown .ground-bomb-body {
+  animation: bombThrowSpin 0.22s steps(4, end) infinite;
+}
+
+.ground-bomb.is-hit {
+  animation: bombHitFlash 0.12s steps(2, end) 1;
+}
+
+.ground-bomb.is-exploding .ground-bomb-radius {
+  opacity: 1;
+  animation: bombExplosionRing 0.24s steps(3, end) 1 forwards;
+}
+
+.ground-bomb.is-exploding .ground-bomb-body {
+  background: #ff5a1f;
+  box-shadow: 0 0 0 12px rgba(255, 224, 70, 0.45), 0 0 0 25px rgba(255, 90, 31, 0.22);
+  animation: bombExplosionBody 0.24s steps(3, end) 1 forwards;
+}
+
+.web-fluid-shot {
+  z-index: 9;
+  position: absolute;
+  width: 34px;
+  height: 10px;
+  pointer-events: none;
+  image-rendering: pixelated;
+  background: repeating-linear-gradient(
+    to right,
+    #ffffff 0 6px,
+    #aee9ff 6px 10px,
+    #ffffff 10px 14px
+  );
+  border: 2px solid #000;
+  box-shadow: 3px 0 0 rgba(255, 255, 255, 0.85);
+  animation: webShotPulse 0.18s steps(2, end) infinite;
+}
+
+.game-display.is-paused .ground-bomb,
+.game-display.is-paused .web-fluid-shot,
+.game-display.is-player-death .ground-bomb,
+.game-display.is-player-death .web-fluid-shot,
+.game-display.is-game-over .ground-bomb,
+.game-display.is-game-over .web-fluid-shot {
+  animation-play-state: paused !important;
+}
+
+@keyframes bombRadiusPulse {
+  0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.45; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.45; }
+}
+
+@keyframes bombSpark {
+  0% { transform: scale(0.8); opacity: 0.65; }
+  100% { transform: scale(1.25); opacity: 1; }
+}
+
+@keyframes bombThrowSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes bombHitFlash {
+  0% { filter: brightness(3) drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.7)); }
+  100% { filter: brightness(1) drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.7)); }
+}
+
+@keyframes bombExplosionRing {
+  0% { transform: translate(-50%, -50%) scale(0.75); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+}
+
+@keyframes bombExplosionBody {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes webShotPulse {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(3px); }
+}
