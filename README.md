@@ -1,4 +1,4 @@
-# 🕷️ MiniSpiderGame
+# MiniSpiderGame
 > Documentação Oficial do Projeto
 
 ---
