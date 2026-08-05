@@ -1,57 +1,405 @@
-# Spider Gift
+# 🕷️ MiniSpiderGame
+> Documentação Oficial do Projeto
 
-Jogo de navegador feito em HTML, CSS e JavaScript puro, com Canvas, controles mobile e estrutura modular.
+---
 
-## Como rodar
+# Índice
 
-Como usa módulos ES (`type="module"`), rode com servidor local:
+- Visão Geral
+- Conceito
+- História
+- Gameplay
+- Mecânicas
+- Progressão
+- Controles
+- HUD
+- Sistema de Personagem
+- Sistema de Inimigos
+- Bosses
+- Fases
+- Sistema de Moedas
+- Power-ups
+- Spider Sense
+- Missões
+- Save System
+- Assets
+- Animações
+- Sons
+- Estrutura do Projeto
+- Arquitetura
+- Scripts
+- Organização das Pastas
+- Roadmap
+- Lista de TODO
+- Histórico de Alterações
 
-```bash
-cd spider-gift
-python -m http.server 5500
+---
+
+# Visão Geral
+
+MiniSpiderGame é um jogo 2D em Pixel Art inspirado em:
+
+- Jetpack Joyride
+- Zombie Tsunami
+- Homem-Aranha
+
+O foco é criar uma gameplay extremamente fluida com movimentação rápida, sensação de velocidade e combate constante.
+
+---
+
+# Conceito
+
+O jogador controla um pequeno herói com habilidades inspiradas no Homem-Aranha.
+
+Durante o percurso será necessário:
+
+- correr
+- desviar
+- usar Spider Sense
+- derrotar inimigos
+- enfrentar chefes
+- coletar moedas
+- desbloquear melhorias
+
+---
+
+# Gameplay
+
+Loop principal
+
+```
+Início
+
+↓
+
+Corre
+
+↓
+
+Desvia
+
+↓
+
+Combate
+
+↓
+
+Coleta moedas
+
+↓
+
+Compra upgrades
+
+↓
+
+Enfrenta Boss
+
+↓
+
+Nova fase
 ```
 
-Abra:
+---
 
-```txt
-http://localhost:5500
+# Controles
+
+| Ação | Tecla |
+|------|-------|
+| Andar | ← → |
+| Pular | Espaço |
+| Ataque | X |
+| Dash | Shift |
+| Spider Sense | C |
+
+---
+
+# HUD
+
+A HUD possui:
+
+- Vida
+- Energia
+- Spider Sense
+- Quantidade de moedas
+- Distância
+- Score
+- Multiplicador
+
+---
+
+# Sistema do Personagem
+
+## Vida
+
+100 HP
+
+## Energia
+
+Utilizada para:
+
+- Dash
+- Spider Sense
+
+---
+
+# Spider Sense
+
+Quando ativado:
+
+- Tempo desacelera
+- Objetos perigosos brilham
+- Mísseis ficam destacados
+- Ataques especiais aparecem
+
+Cooldown de utilização.
+
+---
+
+# Sistema de Moedas
+
+As moedas servem para:
+
+- comprar skins
+- desbloquear fases
+- upgrades
+- melhorias permanentes
+
+---
+
+# Sistema de Upgrade
+
+Exemplos
+
+- +Vida
+- +Energia
+- Dash maior
+- Recuperação mais rápida
+- Spider Sense mais longo
+
+---
+
+# Inimigos
+
+## Comuns
+
+- Drone
+- Robô
+- Soldado
+
+## Especiais
+
+- Sniper
+- Torre Laser
+- Míssil
+
+---
+
+# Bosses
+
+## Boss Intermediário
+
+Ataques:
+
+- Laser
+- Mísseis
+- Investida
+
+Possui duas fases.
+
+---
+
+## Boss Final
+
+Ataques:
+
+- Canhão
+- Robôs
+- Laser Rotativo
+- Explosões
+
+---
+
+# Fases
+
+## Cidade
+
+Skyline noturno
+
+Parallax
+
+Prédios
+
+Luzes
+
+---
+
+## Industrial
+
+Tubulações
+
+Fumaça
+
+Máquinas
+
+---
+
+## Laboratório
+
+Alta tecnologia
+
+Laser
+
+Robôs
+
+---
+
+# Power-ups
+
+- Escudo
+- Ímã
+- Vida
+- Dano Duplo
+- Slow Motion
+- Super Dash
+
+---
+
+# Sistema de Missões
+
+Exemplos
+
+- Derrote 100 inimigos
+- Pegue 500 moedas
+- Não tome dano
+- Faça 3 combos
+
+---
+
+# Save System
+
+Salvar:
+
+- moedas
+- upgrades
+- skins
+- fases
+- recordes
+
+---
+
+# Estrutura do Projeto
+
+```
+MiniSpiderGame/
+assets/
+sprites/
+backgrounds/
+boss/
+player/
+enemies/
+sounds/
+music/
+fonts/
+scripts/
+ui/
+effects/
+save/
+docs/
 ```
 
-Ou use a extensão **Live Server** no VS Code.
+---
 
-## Controles
+# Organização dos Scripts
+Player
+Enemy
+Boss
+HUD
+Save
+Camera
+GameManager
+AudioManager
+SpiderSense
+UpgradeManager
+CoinManager
+MissionManager
 
-- Celular: botão **TEIA** e botão **ATIRAR**.
-- Teclado: `Espaço` para teia e `F` para atirar.
+---
 
-## Estrutura
+# Fluxograma
 
-```txt
-spider-gift/
-index.html
-css/style.css
-js/main.js
-js/engine/
-js/entities/
-js/scenes/
-js/data/
-assets/sprites/
-assets/audio/
-assets/backgrounds/
+```
+GameManager
+↓
+Spawn
+↓
+Player
+↓
+Enemy
+↓
+HUD
+↓
+Boss
+↓
+Save
 ```
 
-## Onde trocar por sprites depois
+---
 
-Procure no código por:
+# Roadmap
 
-- `PLACEHOLDER_PLAYER_SPRITE`
-- `PLACEHOLDER_BOSS_SPRITE`
-- `PLACEHOLDER_OBSTACLE_SPRITE`
-- `PLACEHOLDER_COLLECTIBLE_SPRITE`
-- `PLACEHOLDER_BACKGROUND_PARALLAX`
-- `PLACEHOLDER_AUDIO`
-- `PLACEHOLDER_SPRITE_LOADER`
+## Alpha
 
-## Observação
+- Movimento
+- Pulo
+- Ataque
+- HUD
 
-Este é um MVP jogável com formas simples. A prioridade é mecânica, sensação mobile e organização para expansão.
+## Beta
+
+- Boss
+- Upgrade
+- Save
+
+## Release
+
+- Loja
+- Skins
+- Conquistas
+- Ranking
+
+---
+
+# TODO
+
+- [ ] Melhorar IA dos inimigos
+- [ ] Adicionar animações
+- [ ] Implementar partículas
+- [ ] Música dinâmica
+- [ ] Sistema de missões
+- [ ] Loja
+- [ ] Conquistas
+- [ ] Ranking
+- [ ] Novo Boss
+
+---
+
+# Histórico
+
+## v0.1
+- Projeto iniciado
+
+## v0.2
+- Sistema de personagem
+
+## v0.3
+- Spider Sense
+
+## v0.4
+- Boss intermediário
+
+## v0.5
+- Sistema de moedas
+
+## v1.0
+
+Release oficial
