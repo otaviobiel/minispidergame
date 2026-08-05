@@ -166,7 +166,7 @@ Exemplos
 
 ---
 
-# Inimigos
+# Bosses
 
 ## Comuns
 
