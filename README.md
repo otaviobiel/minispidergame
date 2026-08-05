@@ -13,8 +13,6 @@
 - Progressão
 - Controles
 - HUD
-- Sistema de Personagem
-- Sistema de Inimigos
 - Bosses
 - Fases
 - Sistema de Moedas
