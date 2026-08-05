@@ -103,13 +103,11 @@ Nova fase
 
 # Controles
 
-| Ação | Tecla |
-|------|-------|
-| Andar | ← → |
-| Pular | Espaço |
-| Ataque | X |
-| Dash | Shift |
-| Spider Sense | C |
+| Ação | PC | Mobile |
+|------|-------|----------|
+| Pular/Teia | Espaço | Toque |
+| Ataque | F | Botão de Ataque |
+| Especial | Shift | Botão de Especial |
 
 ---
 
@@ -117,28 +115,22 @@ Nova fase
 
 A HUD possui:
 
-- Vida
-- Energia
-- Spider Sense
+- Quantidade de Fluído de Teia
 - Quantidade de moedas
-- Distância
+- Distância em %
 - Score
-- Multiplicador
+- Temporizador
 
 ---
 
 # Sistema do Personagem
 
-## Vida
-
-100 HP
-
-## Energia
+## Fluído de teia
 
 Utilizada para:
 
-- Dash
-- Spider Sense
+- Especial
+- Ataque
 
 ---
 
@@ -170,11 +162,9 @@ As moedas servem para:
 
 Exemplos
 
-- +Vida
-- +Energia
-- Dash maior
-- Recuperação mais rápida
-- Spider Sense mais longo
+- Poderes novos
+- Ataques novos
+- Estilos de Spider Sense
 
 ---
 
@@ -182,40 +172,13 @@ Exemplos
 
 ## Comuns
 
-- Drone
-- Robô
-- Soldado
+- Dr. Octopus
+- Duende Verde
+- Elektro
 
 ## Especiais
 
-- Sniper
-- Torre Laser
-- Míssil
-
----
-
-# Bosses
-
-## Boss Intermediário
-
-Ataques:
-
-- Laser
-- Mísseis
-- Investida
-
-Possui duas fases.
-
----
-
-## Boss Final
-
-Ataques:
-
-- Canhão
-- Robôs
-- Laser Rotativo
-- Explosões
+- Em desenvolvimento
 
 ---
 
@@ -255,23 +218,13 @@ Robôs
 
 # Power-ups
 
-- Escudo
-- Ímã
-- Vida
-- Dano Duplo
-- Slow Motion
-- Super Dash
+- Em desenvolvimento
 
 ---
 
 # Sistema de Missões
 
-Exemplos
-
-- Derrote 100 inimigos
-- Pegue 500 moedas
-- Não tome dano
-- Faça 3 combos
+- Em desenvolvimento
 
 ---
 
